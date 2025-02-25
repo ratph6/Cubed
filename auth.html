@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Authentication</title>
+</head>
+<body>
+  <h1>Authentication</h1>
+  <form id="authForm">
+    <label for="adminKey">Admin Key:</label>
+    <input type="password" id="adminKey" name="adminKey" required>
+    <br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const ADMIN_KEY = "5AvtOTaqEfIVtsTn9BaOJH6syQri15n6"; // Replace with your actual admin key
+
+    document.getElementById("authForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const inputKey = document.getElementById("adminKey").value;
+
+      if (inputKey === ADMIN_KEY) {
+        // Store the admin key in session storage
+        sessionStorage.setItem("adminKey", inputKey);
+        // Redirect to the main page
+        window.location.href = "main.html";
+      } else {
+        alert("Invalid admin key!");
+      }
+    });
+  </script>
+</body>
+</html>
