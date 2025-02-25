@@ -25,7 +25,6 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
       width: 100%;
       max-width: 400px;
-      text-align: center;
     }
 
     /* Heading */
@@ -33,13 +32,19 @@
       margin-bottom: 1.5rem;
       font-size: 1.75rem;
       color: #ffffff;
+      text-align: center;
+    }
+
+    /* Form Grid Layout */
+    #authForm {
+      display: grid;
+      gap: 1rem; /* Space between form elements */
     }
 
     /* Input Fields */
     input[type="password"] {
       width: 100%;
       padding: 0.75rem;
-      margin-bottom: 1rem;
       border: 1px solid #444;
       border-radius: 8px;
       background-color: #2c2c2c; /* Dark input background */
@@ -74,6 +79,7 @@
     /* Error Message */
     .error-message {
       color: #ff6b6b; /* Red error text */
+      text-align: center;
       margin-top: 1rem;
       display: none;
     }
