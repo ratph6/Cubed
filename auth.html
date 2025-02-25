@@ -12,20 +12,23 @@
       color: #e0e0e0; /* Light text */
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start; /* Align content to the top */
       align-items: center;
       height: 100vh;
       margin: 0;
+      padding-top: 2rem; /* Space at the top */
     }
 
     /* Big "Cubed" Heading */
     .cubed-heading {
-      font-size: 6rem; /* Much larger size */
+      font-size: 18rem; /* 3x bigger (6rem * 3) */
       font-weight: bold;
       background: linear-gradient(45deg, #8a2be2, #ff00ff); /* Purple Love gradient */
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 1rem; /* Space between heading and form */
+      margin: 0; /* Remove default margin */
+      line-height: 1; /* Tighten line height */
+      transform: translateY(-20%); /* Move higher up */
     }
 
     /* Container for the form */
@@ -37,6 +40,7 @@
       width: 100%;
       max-width: 400px;
       text-align: center;
+      margin-top: -10rem; /* Move form closer to the heading */
     }
 
     /* Form Grid Layout */
