@@ -25,14 +25,17 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
       width: 100%;
       max-width: 400px;
+      text-align: center;
     }
 
-    /* Heading */
-    h1 {
+    /* Big "Cubed" Heading */
+    .cubed-heading {
+      font-size: 3rem;
+      font-weight: bold;
+      background: linear-gradient(45deg, #8a2be2, #ff00ff); /* Purple Love gradient */
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       margin-bottom: 1.5rem;
-      font-size: 1.75rem;
-      color: #ffffff;
-      text-align: center;
     }
 
     /* Form Grid Layout */
@@ -98,6 +101,7 @@
 </head>
 <body>
   <div class="auth-container">
+    <div class="cubed-heading">Cubed</div>
     <h1>Admin Authentication</h1>
     <form id="authForm">
       <label for="adminKey">Enter Admin Key:</label>
