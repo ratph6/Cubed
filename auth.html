@@ -11,10 +11,21 @@
       background-color: #121212; /* Dark background */
       color: #e0e0e0; /* Light text */
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
+    }
+
+    /* Big "Cubed" Heading */
+    .cubed-heading {
+      font-size: 6rem; /* Much larger size */
+      font-weight: bold;
+      background: linear-gradient(45deg, #8a2be2, #ff00ff); /* Purple Love gradient */
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem; /* Space between heading and form */
     }
 
     /* Container for the form */
@@ -26,16 +37,6 @@
       width: 100%;
       max-width: 400px;
       text-align: center;
-    }
-
-    /* Big "Cubed" Heading */
-    .cubed-heading {
-      font-size: 3rem;
-      font-weight: bold;
-      background: linear-gradient(45deg, #8a2be2, #ff00ff); /* Purple Love gradient */
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 1.5rem;
     }
 
     /* Form Grid Layout */
@@ -100,8 +101,11 @@
   </style>
 </head>
 <body>
+  <!-- Big "Cubed" Heading -->
+  <div class="cubed-heading">Cubed</div>
+
+  <!-- Form Container -->
   <div class="auth-container">
-    <div class="cubed-heading">Cubed</div>
     <h1>Admin Authentication</h1>
     <form id="authForm">
       <label for="adminKey">Enter Admin Key:</label>
