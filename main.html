@@ -24,6 +24,13 @@
   </form>
 
   <script type="module">
+    // Check if the admin key is stored in session storage
+    const adminKey = sessionStorage.getItem("adminKey");
+    if (!adminKey) {
+      // Redirect to the authentication page if the admin key is not found
+      window.location.href = "auth.html";
+    }
+
     // Import Firebase modules
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
     import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
@@ -44,24 +51,9 @@
     const app = initializeApp(firebaseConfig);
     const database = getDatabase(app);
 
-    // Admin key
-    const ADMIN_KEY = "5AvtOTaqEfIVtsTn9BaOJH6syQri15n6"; // Replace with your actual admin key
-
-    // Function to validate the admin key
-    function validateAdminKey(inputKey) {
-      return inputKey === ADMIN_KEY;
-    }
-
     // Handle form submission
     document.getElementById("updateForm").addEventListener("submit", (e) => {
       e.preventDefault();
-
-      // Prompt for admin key
-      const inputKey = prompt("Enter the admin key:");
-      if (!validateAdminKey(inputKey)) {
-        alert("Invalid admin key!");
-        return;
-      }
 
       const ign = document.getElementById("ign").value;
       const x = parseFloat(document.getElementById("x").value);
