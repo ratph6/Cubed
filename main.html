@@ -41,6 +41,15 @@
       gap: 1rem; /* Space between form elements */
     }
 
+    /* Label Styles */
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      color: #e0e0e0;
+      text-align: left; /* Ensure labels are aligned to the left */
+    }
+
     /* Input Fields */
     input[type="text"],
     input[type="number"] {
@@ -52,6 +61,7 @@
       color: #e0e0e0; /* Light text */
       font-size: 1rem;
       transition: border-color 0.3s ease;
+      box-sizing: border-box; /* Ensure padding doesn't affect width */
     }
 
     input[type="text"]:focus,
@@ -72,6 +82,7 @@
       font-size: 1rem;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      box-sizing: border-box; /* Ensure padding doesn't affect width */
     }
 
     button:hover {
