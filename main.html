@@ -111,13 +111,6 @@
   </div>
 
   <script type="module">
-    // Check if the admin key is stored in session storage
-    const adminKey = sessionStorage.getItem("adminKey");
-    if (!adminKey) {
-      // Redirect to the authentication page if the admin key is not found
-      window.location.href = "auth.html";
-    }
-
     // Import Firebase modules
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
@@ -140,19 +133,31 @@
     const auth = getAuth();
     const database = getDatabase(app);
 
+    // Track authentication state
+    let isAuthenticated = false;
 
-    
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("User is signed in:", user.uid);
+        isAuthenticated = true;
+      } else {
+        console.log("User is not signed in.");
+        isAuthenticated = false;
+        // Redirect to the authentication page
+        window.location.href = "auth.html";
+      }
+    });
+
     // Handle form submission
     document.getElementById("updateForm").addEventListener("submit", (e) => {
-      const user = auth.currentUser;
-      if (user) {
-        e.preventDefault();
-  
+      e.preventDefault();
+
+      if (isAuthenticated) {
         const ign = document.getElementById("ign").value;
         const x = parseFloat(document.getElementById("x").value);
         const y = parseFloat(document.getElementById("y").value);
         const z = parseFloat(document.getElementById("z").value);
-  
+
         // Update Firebase database
         set(ref(database, `users/${ign}`), { x, y, z })
           .then(() => {
