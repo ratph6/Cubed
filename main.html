@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Update User Data</title>
+    <title>User Data Management</title>
     <style>
       /* General Styles */
       body {
@@ -32,7 +32,7 @@
       .cubed-heading {
         font-size: 3rem;
         font-weight: bold;
-        background: linear-gradient(45deg, #fc79ab, #f28c98); /* Purple Love gradient */
+        background: linear-gradient(45deg, #8a2be2, #ff00ff); /* Purple Love gradient */
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin-bottom: 1.5rem;
@@ -130,6 +130,13 @@
       button.delete-button:hover {
         background-color: #cc0000; /* Darker red on hover */
       }
+
+      /* Result Display */
+      .result {
+        margin-top: 1rem;
+        font-size: 1.2rem;
+        color: #e0e0e0;
+      }
     </style>
   </head>
   <body>
@@ -141,6 +148,7 @@
       <div class="tab-navigation">
         <button class="tab-button active" data-tab="update">Update Data</button>
         <button class="tab-button" data-tab="delete">Delete Data</button>
+        <button class="tab-button" data-tab="converter">Height Converter</button>
       </div>
 
       <!-- Update User Data Tab -->
@@ -149,11 +157,11 @@
           <label for="ign">Username:</label>
           <input type="text" id="ign" name="ign" required />
           <label for="x">X:</label>
-          <input type="number" id="x" name="x" step="0.001" required />
+          <input type="number" id="x" name="x" step="0.1" required />
           <label for="y">Y:</label>
-          <input type="number" id="y" name="y" step="0.001" required />
+          <input type="number" id="y" name="y" step="0.1" required />
           <label for="z">Z:</label>
-          <input type="number" id="z" name="z" step="0.001" required />
+          <input type="number" id="z" name="z" step="0.1" required />
           <button type="submit">Update</button>
         </form>
       </div>
@@ -165,6 +173,16 @@
           <input type="text" id="deleteIgn" name="deleteIgn" required />
           <button type="submit" class="delete-button">Delete User Data</button>
         </form>
+      </div>
+
+      <!-- Height Converter Tab -->
+      <div id="converter" class="tab-content">
+        <form id="converterForm">
+          <label for="heightCm">Height (cm):</label>
+          <input type="number" id="heightCm" name="heightCm" step="0.1" required />
+          <button type="submit">Convert</button>
+        </form>
+        <div class="result" id="conversionResult"></div>
       </div>
     </div>
 
@@ -248,6 +266,19 @@
           .catch((error) => {
             alert(`Error deleting data: ${error.message}`);
           });
+      });
+
+      // Handle height converter form submission
+      document.getElementById("converterForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const heightCm = parseFloat(document.getElementById("heightCm").value);
+
+        // Convert height to "y" (0.001 y = 0.2 cm)
+        const yValue = (heightCm / 0.2) * 0.001;
+
+        // Display the result
+        document.getElementById("conversionResult").textContent = `Converted Height: ${yValue.toFixed(4)} y`;
       });
     </script>
   </body>
