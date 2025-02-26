@@ -133,42 +133,30 @@
     const auth = getAuth();
     const database = getDatabase(app);
 
-    // Track authentication state
-    let isAuthenticated = false;
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("User is signed in:", user.uid);
-        isAuthenticated = true;
-      } else {
-        console.log("User is not signed in.");
-        isAuthenticated = false;
-        // Redirect to the authentication page
-        window.location.href = "auth.html";
-      }
-    });
+    // Check if the user is authenticated
+    const user = sessionStorage.getItem("uid");
+    if (!user) {
+      alert("You must be signed in to update data.");
+      window.location.href = "auth.html"; // Redirect to login if not signed in
+    }
 
     // Handle form submission
     document.getElementById("updateForm").addEventListener("submit", (e) => {
       e.preventDefault();
 
-      if (isAuthenticated) {
-        const ign = document.getElementById("ign").value;
-        const x = parseFloat(document.getElementById("x").value);
-        const y = parseFloat(document.getElementById("y").value);
-        const z = parseFloat(document.getElementById("z").value);
+      const ign = document.getElementById("ign").value;
+      const x = parseFloat(document.getElementById("x").value);
+      const y = parseFloat(document.getElementById("y").value);
+      const z = parseFloat(document.getElementById("z").value);
 
-        // Update Firebase database
-        set(ref(database, `users/${ign}`), { x, y, z })
-          .then(() => {
-            alert("Data updated successfully!");
-          })
-          .catch((error) => {
-            alert(`Error updating data: ${error.message}`);
-          });
-      } else {
-        alert("You must be signed in to update data.");
-      }
+      // Update Firebase database
+      set(ref(database, `users/${user}/coordinates/${ign}`), { x, y, z })
+        .then(() => {
+          alert("Data updated successfully!");
+        })
+        .catch((error) => {
+          alert(`Error updating data: ${error.message}`);
+        });
     });
   </script>
 </body>
