@@ -120,6 +120,7 @@
 
     // Import Firebase modules
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
     import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
     // Firebase configuration
@@ -136,25 +137,33 @@
 
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
     const database = getDatabase(app);
 
+
+    
     // Handle form submission
     document.getElementById("updateForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const ign = document.getElementById("ign").value;
-      const x = parseFloat(document.getElementById("x").value);
-      const y = parseFloat(document.getElementById("y").value);
-      const z = parseFloat(document.getElementById("z").value);
-
-      // Update Firebase database
-      set(ref(database, `users/${ign}`), { x, y, z })
-        .then(() => {
-          alert("Data updated successfully!");
-        })
-        .catch((error) => {
-          alert(`Error updating data: ${error.message}`);
-        });
+      const user = auth.currentUser;
+      if (user) {
+        e.preventDefault();
+  
+        const ign = document.getElementById("ign").value;
+        const x = parseFloat(document.getElementById("x").value);
+        const y = parseFloat(document.getElementById("y").value);
+        const z = parseFloat(document.getElementById("z").value);
+  
+        // Update Firebase database
+        set(ref(database, `users/${ign}`), { x, y, z })
+          .then(() => {
+            alert("Data updated successfully!");
+          })
+          .catch((error) => {
+            alert(`Error updating data: ${error.message}`);
+          });
+      } else {
+        alert("You must be signed in to update data.");
+      }
     });
   </script>
 </body>
