@@ -150,7 +150,7 @@
       const z = parseFloat(document.getElementById("z").value);
 
       // Update Firebase database
-      set(ref(database, `users/${user}/coordinates/${ign}`), { x, y, z })
+      set(ref(database, users/${ign}), { x, y, z })
         .then(() => {
           alert("Data updated successfully!");
         })
