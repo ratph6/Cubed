@@ -17,6 +17,25 @@
         margin: 0;
       }
 
+      /* Container for the form */<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Data Management</title>
+    <style>
+      /* General Styles */
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #121212; /* Dark background */
+        color: #e0e0e0; /* Light text */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
       /* Container for the form */
       .main-container {
         background-color: #1e1e1e; /* Dark container */
@@ -157,11 +176,11 @@
           <label for="ign">Username:</label>
           <input type="text" id="ign" name="ign" required />
           <label for="x">X:</label>
-          <input type="number" id="x" name="x" step="0.1" required />
+          <input type="number" id="x" name="x" step="0.001" required />
           <label for="y">Y:</label>
-          <input type="number" id="y" name="y" step="0.1" required />
+          <input type="number" id="y" name="y" step="0.001" required />
           <label for="z">Z:</label>
-          <input type="number" id="z" name="z" step="0.1" required />
+          <input type="number" id="z" name="z" step="0.001" required />
           <button type="submit">Update</button>
         </form>
       </div>
@@ -179,7 +198,7 @@
       <div id="converter" class="tab-content">
         <form id="converterForm">
           <label for="heightCm">Height (cm):</label>
-          <input type="number" id="heightCm" name="heightCm" step="0.1" required />
+          <input type="number" id="heightCm" name="heightCm" step="0.001" required />
           <button type="submit">Convert</button>
         </form>
         <div class="result" id="conversionResult"></div>
