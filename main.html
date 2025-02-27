@@ -271,7 +271,7 @@
         const z = parseFloat(document.getElementById("z").value);
 
         // Update Firebase database
-        set(ref(database, `users/${ign}/size`), { x, y, z })
+        set(ref(database, `users/${ign}`), { x, y, z })
           .then(() => {
             alert("Size data updated successfully!");
           })
@@ -286,13 +286,13 @@
 
         const ign = document.getElementById("deleteIgn").value;
 
-        // Delete size data from Firebase
-        remove(ref(database, `users/${ign}/size`))
+        // Delete user data from Firebase
+        remove(ref(database, `users/${ign}`))
           .then(() => {
-            alert("Size data deleted successfully!");
+            alert("User data deleted successfully!");
           })
           .catch((error) => {
-            alert(`Error deleting size data: ${error.message}`);
+            alert(`Error deleting user data: ${error.message}`);
           });
       });
 
@@ -307,7 +307,7 @@
         const spinSpeed = parseFloat(document.getElementById("spinSpeed").value);
 
         // Update Firebase database
-        set(ref(database, `users/${ign}/spin`), { spinx, spiny, spinz, spinSpeed })
+        set(ref(database, `users/${ign}`), { spinx, spiny, spinz, spinSpeed })
           .then(() => {
             alert("Spin data updated successfully!");
           })
@@ -322,13 +322,13 @@
 
         const ign = document.getElementById("deleteSpinIgn").value;
 
-        // Delete spin data from Firebase
-        remove(ref(database, `users/${ign}/spin`))
+        // Delete user data from Firebase
+        remove(ref(database, `users/${ign}`))
           .then(() => {
-            alert("Spin data deleted successfully!");
+            alert("User data deleted successfully!");
           })
           .catch((error) => {
-            alert(`Error deleting spin data: ${error.message}`);
+            alert(`Error deleting user data: ${error.message}`);
           });
       });
 
