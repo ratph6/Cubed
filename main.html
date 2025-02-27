@@ -251,8 +251,14 @@
         });
       });
 
+      // Function to fetch existing data for a user
+      async function fetchUserData(ign) {
+          const snapshot = await get(ref(database, `users/${ign}`));
+          return snapshot.exists() ? snapshot.val() : {};
+      }
+      
       // Handle update size form submission
-      document.getElementById("updateForm").addEventListener("submit", (e) => {
+      document.getElementById("updateForm").addEventListener("submit", async (e) => {
           e.preventDefault();
       
           const ign = document.getElementById("ign").value;
@@ -260,18 +266,23 @@
           const y = parseFloat(document.getElementById("y").value);
           const z = parseFloat(document.getElementById("z").value);
       
-          // Update Firebase database with size data (merge with existing data)
-          set(ref(database, `users/${ign}`), { x, y, z }, { merge: true })
-              .then(() => {
-                  alert("Size data updated successfully!");
-              })
-              .catch((error) => {
-                  alert(`Error updating size data: ${error.message}`);
-              });
+          try {
+              // Fetch existing data
+              const existingData = await fetchUserData(ign);
+      
+              // Merge new size data with existing data
+              const updatedData = { ...existingData, x, y, z };
+      
+              // Update Firebase database with merged data
+              await set(ref(database, `users/${ign}`), updatedData);
+              alert("Size data updated successfully!");
+          } catch (error) {
+              alert(`Error updating size data: ${error.message}`);
+          }
       });
       
       // Handle update spin form submission
-      document.getElementById("updateSpinForm").addEventListener("submit", (e) => {
+      document.getElementById("updateSpinForm").addEventListener("submit", async (e) => {
           e.preventDefault();
       
           const ign = document.getElementById("spinIgn").value;
@@ -280,14 +291,19 @@
           const spinz = parseFloat(document.getElementById("spinz").value);
           const spinSpeed = parseFloat(document.getElementById("spinSpeed").value);
       
-          // Update Firebase database with spin data (merge with existing data)
-          set(ref(database, `users/${ign}`), { spinx, spiny, spinz, spinSpeed }, { merge: true })
-              .then(() => {
-                  alert("Spin data updated successfully!");
-              })
-              .catch((error) => {
-                  alert(`Error updating spin data: ${error.message}`);
-              });
+          try {
+              // Fetch existing data
+              const existingData = await fetchUserData(ign);
+      
+              // Merge new spin data with existing data
+              const updatedData = { ...existingData, spinx, spiny, spinz, spinSpeed };
+      
+              // Update Firebase database with merged data
+              await set(ref(database, `users/${ign}`), updatedData);
+              alert("Spin data updated successfully!");
+          } catch (error) {
+              alert(`Error updating spin data: ${error.message}`);
+          }
       });
 
       // Handle delete user data form submission
