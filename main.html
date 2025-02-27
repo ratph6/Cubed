@@ -17,25 +17,6 @@
         margin: 0;
       }
 
-      /* Container for the form */<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User Data Management</title>
-    <style>
-      /* General Styles */
-      body {
-        font-family: "Arial", sans-serif;
-        background-color: #121212; /* Dark background */
-        color: #e0e0e0; /* Light text */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-      }
-
       /* Container for the form */
       .main-container {
         background-color: #1e1e1e; /* Dark container */
@@ -165,12 +146,14 @@
 
       <!-- Tab Navigation -->
       <div class="tab-navigation">
-        <button class="tab-button active" data-tab="update">Update Data</button>
-        <button class="tab-button" data-tab="delete">Delete Data</button>
+        <button class="tab-button active" data-tab="update">Update Size</button>
+        <button class="tab-button" data-tab="delete">Delete Size</button>
+        <button class="tab-button" data-tab="updateSpin">Update Spin</button>
+        <button class="tab-button" data-tab="deleteSpin">Delete Spin</button>
         <button class="tab-button" data-tab="converter">Height Converter</button>
       </div>
 
-      <!-- Update User Data Tab -->
+      <!-- Update Size Tab -->
       <div id="update" class="tab-content active">
         <form id="updateForm">
           <label for="ign">Username:</label>
@@ -181,16 +164,40 @@
           <input type="number" id="y" name="y" step="0.001" required />
           <label for="z">Z:</label>
           <input type="number" id="z" name="z" step="0.001" required />
-          <button type="submit">Update</button>
+          <button type="submit">Update Size</button>
         </form>
       </div>
 
-      <!-- Delete User Data Tab -->
+      <!-- Delete Size Tab -->
       <div id="delete" class="tab-content">
         <form id="deleteForm">
           <label for="deleteIgn">Username:</label>
           <input type="text" id="deleteIgn" name="deleteIgn" required />
-          <button type="submit" class="delete-button">Delete User Data</button>
+          <button type="submit" class="delete-button">Delete Size Data</button>
+        </form>
+      </div>
+
+      <!-- Update Spin Tab -->
+      <div id="updateSpin" class="tab-content">
+        <form id="updateSpinForm">
+          <label for="spinIgn">Username:</label>
+          <input type="text" id="spinIgn" name="spinIgn" required />
+          <label for="spinx">Spin X:</label>
+          <input type="number" id="spinx" name="spinx" step="0.001" required />
+          <label for="spiny">Spin Y:</label>
+          <input type="number" id="spiny" name="spiny" step="0.001" required />
+          <label for="spinz">Spin Z:</label>
+          <input type="number" id="spinz" name="spinz" step="0.001" required />
+          <button type="submit">Update Spin</button>
+        </form>
+      </div>
+
+      <!-- Delete Spin Tab -->
+      <div id="deleteSpin" class="tab-content">
+        <form id="deleteSpinForm">
+          <label for="deleteSpinIgn">Username:</label>
+          <input type="text" id="deleteSpinIgn" name="deleteSpinIgn" required />
+          <button type="submit" class="delete-button">Delete Spin Data</button>
         </form>
       </div>
 
@@ -252,7 +259,7 @@
         });
       });
 
-      // Handle update form submission
+      // Handle update size form submission
       document.getElementById("updateForm").addEventListener("submit", (e) => {
         e.preventDefault();
 
@@ -262,28 +269,63 @@
         const z = parseFloat(document.getElementById("z").value);
 
         // Update Firebase database
-        set(ref(database, `users/${ign}`), { x, y, z })
+        set(ref(database, `users/${ign}/size`), { x, y, z })
           .then(() => {
-            alert("Data updated successfully!");
+            alert("Size data updated successfully!");
           })
           .catch((error) => {
-            alert(`Error updating data: ${error.message}`);
+            alert(`Error updating size data: ${error.message}`);
           });
       });
 
-      // Handle delete form submission
+      // Handle delete size form submission
       document.getElementById("deleteForm").addEventListener("submit", (e) => {
         e.preventDefault();
 
         const ign = document.getElementById("deleteIgn").value;
 
-        // Delete user data from Firebase
-        remove(ref(database, `users/${ign}`))
+        // Delete size data from Firebase
+        remove(ref(database, `users/${ign}/size`))
           .then(() => {
-            alert("User data deleted successfully!");
+            alert("Size data deleted successfully!");
           })
           .catch((error) => {
-            alert(`Error deleting data: ${error.message}`);
+            alert(`Error deleting size data: ${error.message}`);
+          });
+      });
+
+      // Handle update spin form submission
+      document.getElementById("updateSpinForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const ign = document.getElementById("spinIgn").value;
+        const spinx = parseFloat(document.getElementById("spinx").value);
+        const spiny = parseFloat(document.getElementById("spiny").value);
+        const spinz = parseFloat(document.getElementById("spinz").value);
+
+        // Update Firebase database
+        set(ref(database, `users/${ign}/spin`), { spinx, spiny, spinz })
+          .then(() => {
+            alert("Spin data updated successfully!");
+          })
+          .catch((error) => {
+            alert(`Error updating spin data: ${error.message}`);
+          });
+      });
+
+      // Handle delete spin form submission
+      document.getElementById("deleteSpinForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const ign = document.getElementById("deleteSpinIgn").value;
+
+        // Delete spin data from Firebase
+        remove(ref(database, `users/${ign}/spin`))
+          .then(() => {
+            alert("Spin data deleted successfully!");
+          })
+          .catch((error) => {
+            alert(`Error deleting spin data: ${error.message}`);
           });
       });
 
