@@ -188,6 +188,8 @@
           <input type="number" id="spiny" name="spiny" step="0.001" required />
           <label for="spinz">Spin Z:</label>
           <input type="number" id="spinz" name="spinz" step="0.001" required />
+          <label for="spinSpeed">Spin Speed:</label>
+          <input type="number" id="spinSpeed" name="spinSpeed" step="0.001" required />
           <button type="submit">Update Spin</button>
         </form>
       </div>
@@ -302,9 +304,10 @@
         const spinx = parseFloat(document.getElementById("spinx").value);
         const spiny = parseFloat(document.getElementById("spiny").value);
         const spinz = parseFloat(document.getElementById("spinz").value);
+        const spinSpeed = parseFloat(document.getElementById("spinSpeed").value);
 
         // Update Firebase database
-        set(ref(database, `users/${ign}/spin`), { spinx, spiny, spinz })
+        set(ref(database, `users/${ign}/spin`), { spinx, spiny, spinz, spinSpeed })
           .then(() => {
             alert("Spin data updated successfully!");
           })
