@@ -17,6 +17,25 @@
         margin: 0;
       }
 
+      /* Container for the form */<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Data Management</title>
+    <style>
+      /* General Styles */
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #121212; /* Dark background */
+        color: #e0e0e0; /* Light text */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
       /* Container for the form */
       .main-container {
         background-color: #1e1e1e; /* Dark container */
@@ -146,13 +165,12 @@
 
       <!-- Tab Navigation -->
       <div class="tab-navigation">
-        <button class="tab-button active" data-tab="update">Update Size</button>
-        <button class="tab-button" data-tab="updateSpin">Update Spin</button>
-        <button class="tab-button" data-tab="delete">Delete User Data</button>
+        <button class="tab-button active" data-tab="update">Update Data</button>
+        <button class="tab-button" data-tab="delete">Delete Data</button>
         <button class="tab-button" data-tab="converter">Height Converter</button>
       </div>
 
-      <!-- Update Size Tab -->
+      <!-- Update User Data Tab -->
       <div id="update" class="tab-content active">
         <form id="updateForm">
           <label for="ign">Username:</label>
@@ -163,24 +181,7 @@
           <input type="number" id="y" name="y" step="0.001" required />
           <label for="z">Z:</label>
           <input type="number" id="z" name="z" step="0.001" required />
-          <button type="submit">Update Size</button>
-        </form>
-      </div>
-
-      <!-- Update Spin Tab -->
-      <div id="updateSpin" class="tab-content">
-        <form id="updateSpinForm">
-          <label for="spinIgn">Username:</label>
-          <input type="text" id="spinIgn" name="spinIgn" required />
-          <label for="spinx">Spin X:</label>
-          <input type="number" id="spinx" name="spinx" step="0.001" required />
-          <label for="spiny">Spin Y:</label>
-          <input type="number" id="spiny" name="spiny" step="0.001" required />
-          <label for="spinz">Spin Z:</label>
-          <input type="number" id="spinz" name="spinz" step="0.001" required />
-          <label for="spinSpeed">Spin Speed:</label>
-          <input type="number" id="spinSpeed" name="spinSpeed" step="0.001" required />
-          <button type="submit">Update Spin</button>
+          <button type="submit">Update</button>
         </form>
       </div>
 
@@ -251,74 +252,38 @@
         });
       });
 
-      // Function to fetch existing data for a user
-      async function fetchUserData(ign) {
-          const snapshot = await get(ref(database, `users/${ign}`));
-          return snapshot.exists() ? snapshot.val() : {};
-      }
-      
-      // Handle update size form submission
-      document.getElementById("updateForm").addEventListener("submit", async (e) => {
-          e.preventDefault();
-      
-          const ign = document.getElementById("ign").value;
-          const x = parseFloat(document.getElementById("x").value);
-          const y = parseFloat(document.getElementById("y").value);
-          const z = parseFloat(document.getElementById("z").value);
-      
-          try {
-              // Fetch existing data
-              const existingData = await fetchUserData(ign);
-      
-              // Merge new size data with existing data
-              const updatedData = { ...existingData, x, y, z };
-      
-              // Update Firebase database with merged data
-              await set(ref(database, `users/${ign}`), updatedData);
-              alert("Size data updated successfully!");
-          } catch (error) {
-              alert(`Error updating size data: ${error.message}`);
-          }
-      });
-      
-      // Handle update spin form submission
-      document.getElementById("updateSpinForm").addEventListener("submit", async (e) => {
-          e.preventDefault();
-      
-          const ign = document.getElementById("spinIgn").value;
-          const spinx = parseFloat(document.getElementById("spinx").value);
-          const spiny = parseFloat(document.getElementById("spiny").value);
-          const spinz = parseFloat(document.getElementById("spinz").value);
-          const spinSpeed = parseFloat(document.getElementById("spinSpeed").value);
-      
-          try {
-              // Fetch existing data
-              const existingData = await fetchUserData(ign);
-      
-              // Merge new spin data with existing data
-              const updatedData = { ...existingData, spinx, spiny, spinz, spinSpeed };
-      
-              // Update Firebase database with merged data
-              await set(ref(database, `users/${ign}`), updatedData);
-              alert("Spin data updated successfully!");
-          } catch (error) {
-              alert(`Error updating spin data: ${error.message}`);
-          }
+      // Handle update form submission
+      document.getElementById("updateForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const ign = document.getElementById("ign").value;
+        const x = parseFloat(document.getElementById("x").value);
+        const y = parseFloat(document.getElementById("y").value);
+        const z = parseFloat(document.getElementById("z").value);
+
+        // Update Firebase database
+        set(ref(database, `users/${ign}`), { x, y, z })
+          .then(() => {
+            alert("Data updated successfully!");
+          })
+          .catch((error) => {
+            alert(`Error updating data: ${error.message}`);
+          });
       });
 
-      // Handle delete user data form submission
+      // Handle delete form submission
       document.getElementById("deleteForm").addEventListener("submit", (e) => {
         e.preventDefault();
 
         const ign = document.getElementById("deleteIgn").value;
 
-        // Delete all user data from Firebase
+        // Delete user data from Firebase
         remove(ref(database, `users/${ign}`))
           .then(() => {
             alert("User data deleted successfully!");
           })
           .catch((error) => {
-            alert(`Error deleting user data: ${error.message}`);
+            alert(`Error deleting data: ${error.message}`);
           });
       });
 
