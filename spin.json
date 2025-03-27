@@ -1,1 +1,14 @@
-
+{
+    "9Star_Hype": {
+        "speed": 20,
+        "axisX": 0,
+        "axisY": 1,
+        "axisZ": 0
+    },
+    "ctimportcubed": {
+        "speed": 20,
+        "axisX": 1,
+        "axisY": 0,
+        "axisZ": 0
+    }
+}
