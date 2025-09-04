@@ -10,5 +10,11 @@
         "axisX": 1,
         "axisY": 0,
         "axisZ": 0
+    },
+    "ohtuvi": {
+        "speed": 20,
+        "axisX": 1,
+        "axisY": 0,
+        "axisZ": 0
     }
 }
