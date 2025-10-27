@@ -1,6 +1,6 @@
 {
     "catgirlSlice": {
-        "speed": 20,
+        "speed": 60,
         "axisX": 0,
         "axisY": 1,
         "axisZ": 0
